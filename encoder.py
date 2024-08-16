@@ -25,23 +25,14 @@ for word in random_words:
 encode_file = input('Enter file name: ')
 
 # 12-word passcode
-input_1 = input('Word 1: ')
-input_2 = input('Word 2: ')
-input_3 = input('Word 3: ')
-input_4 = input('Word 4: ')
-input_5 = input('Word 5: ')
-input_6 = input('Word 6: ')
-input_7 = input('Word 7: ')
-input_8 = input('Word 8: ')
-input_9 = input('Word 9: ')
-input_10 = input('Word 10: ')
-input_11 = input('Word 11: ')
-input_12 = input('Word 12: ')
+password = []
+count = 1
+while count <= 12:
+    code = input(f'Word {count}: ')
+    password.append(code)
+    count += 1
 
-password = [input_1, input_2, input_3, input_4, input_5, input_6,
-            input_7, input_8, input_9, input_10, input_11, input_12]
-
-# randomly insert words for password into random list
+# randomly insert words for password into random list - can be list comp?
 for pwd in password:
     index = randrange(len(text_list))
     text_list.insert(index, pwd)
