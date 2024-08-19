@@ -5,7 +5,7 @@ encode_file = input('Enter file: ')
 password = []
 count = 1
 while count <= 12:
-    code = int(input(f'Word {count}: '))
+    code = int(input(f'Code {count}: '))
     password.append(code)
     count += 1
 
