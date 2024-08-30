@@ -2,15 +2,38 @@ from wonderwords import RandomWord
 from random import randrange, choice
 import string
 
-print('Please wait, generating random sets... this will take a few minutes.')
+
+# prompt for file name
+encode_file = input('Filename: ')
+
+pass_len = input('Number of words: ')
+# trying to convert input to a number - if not, asking again.
+while type(pass_len) != int: 
+    try:
+        pass_len = int(pass_len)
+    except:
+        print('Please enter a number.')
+        pass_len = input('Number of words: ')
+
+document_len = input('Amount of randomly generated words: ')
+# trying to convert input to a number - if not, asking again.
+while type(document_len) != int:
+    try:
+        document_len = int(document_len)
+    except:
+        print('Please enter a number.')
+        document_len = input('Amount of randomly generated words: ')
+
+if document_len >= 500:
+    print('Please wait, generating random words... this will take a few minutes.')
+
 random = RandomWord()
-doc_size = 1000
 # create list of random characters
-random_words = [random.word() for _ in range(doc_size//3)]
+random_words = [random.word() for _ in range(document_len//3)]
 random_letters = [''.join((choice(string.ascii_letters))
-                          for _ in range(randrange(5, 15))) for _ in range(doc_size//3)]
+                          for _ in range(randrange(5, 15))) for _ in range(document_len//3)]
 random_characters = [''.join((choice(string.ascii_letters + string.punctuation))
-                             for _ in range(randrange(5, 15))) for _ in range(doc_size//3)]
+                             for _ in range(randrange(5, 15))) for _ in range(document_len//3)]
 
 # merges random character lists into one list
 text_list = []
@@ -30,14 +53,9 @@ for word in random_words:
                 dex = randrange(len(text_list))
                 text_list.insert(dex, char)
 
-# prompt for file name
-print('\n')
-encode_file = input('Enter file name: ')
-
-# 12-word passcode
 password = []
 count = 1
-while count <= 12:
+while count <= pass_len:
     code = input(f'Word {count}: ')
     password.append(code)
     count += 1
@@ -53,9 +71,9 @@ with open(f'{encode_file}.txt', 'w') as file:
         file.write(f'{word} ')
 
 code = [text_list.index(word) for word in password]  # creates a unique one-time passcode
-# would like for this to be a max six length code - possible?
+
 print('\n')
-print(f'PLEASE WRITE DOWN:')
+print(f'PLEASE WRITE DOWN - these will be used to recover your password:')
 count = 1
 for num in code:
     print(f'{count}: {num}')
